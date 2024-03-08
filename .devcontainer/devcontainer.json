@@ -1,5 +1,5 @@
 {
-	"name": "new project",
+	"name": "Bugsies",
 	"build": {
 		"dockerfile": "../Dockerfile",
 		"context": "..",
