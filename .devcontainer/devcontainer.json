@@ -16,7 +16,7 @@
 				"[python]": {
 					"editor.formatOnSave": true,
 					"editor.codeActionsOnSave": {
-						"source.organizeImports": true
+						"source.organizeImports": "explicit"
 					},
 					"editor.defaultFormatter": "charliermarsh.ruff"
 				},
@@ -29,7 +29,8 @@
 				"ms-vsliveshare.vsliveshare",
 				"mhutchie.git-graph",
 				"ms-toolsai.jupyter",
-				"charliermarsh.ruff"
+				"charliermarsh.ruff",
+				"tamasfe.even-better-toml"
 			]
 		}
 	}
