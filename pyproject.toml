@@ -10,11 +10,11 @@ Repository = "https://github.com/SunBright-Technologies/bugsies"
 [tool.ruff]
 line-length = 119
 target-version = "py312"
-exclude = [".git","__pycache__"]
+exclude = [".git", "__pycache__"]
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]
-ignore = ["E231","E501","E203"]
+ignore = ["E231", "E501", "E203"]
 
 [tool.ruff.format]
 quote-style = "double"
