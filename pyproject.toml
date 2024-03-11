@@ -1,11 +1,11 @@
 [project]
-name = "new project"
+name = "Bugsies"
 version = "0.1.0"
-description = "new project description"
+description = "Open-source project meant to provide procedural SVG images"
 requires-python = ">=3.12.0"
 
 [project.urls]
-Repository = "new project repository url"
+Repository = "https://github.com/SunBright-Technologies/bugsies"
 
 [tool.ruff]
 line-length = 119
