@@ -46,7 +46,7 @@ ALL_TRANSFORMS = Transform(x=10, y=15, scale_x=2, scale_y=3, rotation=90)
         pytest.param(ALL_TRANSFORMS, ALL_TRANSFORMS, Transform(-35, 35, 4, 9, 180), id="all + all"),
     ],
 )
-def test_combining_simple_transforms(t1: Transform, t2: Transform, expected: Transform):
+def test_combining_simple_transforms(t1: Transform, t2: Transform, expected: Transform) -> None:
     result = t1 + t2
     assert expected == result
 
@@ -74,6 +74,6 @@ def test_combining_simple_transforms(t1: Transform, t2: Transform, expected: Tra
         ),
     ],
 )
-def test_combining_transforms_with_rotation(t1: Transform, t2: Transform, expected: Transform):
+def test_combining_transforms_with_rotation(t1: Transform, t2: Transform, expected: Transform) -> None:
     result = t1 + t2
     assert expected == result
