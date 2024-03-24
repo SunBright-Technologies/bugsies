@@ -1,6 +1,5 @@
 import math
 from dataclasses import dataclass
-from typing import Self
 
 
 @dataclass(frozen=True)
@@ -15,10 +14,12 @@ class Transform:
     def rotation_rad(self) -> float:
         return math.radians(self.rotation)
 
-    def __add__(self, other: Self) -> Self:
+    def __add__(self, other: object) -> "Transform":
+        if not isinstance(other, Transform):
+            raise TypeError(f"unsupported operand type(s) for +: 'Transform' and '{type(other)}'")
         return combine(self, other)
 
-    def __eq__(self, other: Self) -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Transform):
             return False
         rotation_diff = math.fmod(self.rotation - other.rotation, 360)
