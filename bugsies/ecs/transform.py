@@ -40,9 +40,15 @@ class Transform:
 
 def combine(t1: Transform, t2: Transform) -> Transform:
     # the new x and y need to take into account the rotation of t1 and the scale of t1
-    new_x = t1.x + t2.x * math.cos(t1.rotation_rad) * t1.scale_x - t2.y * math.sin(t1.rotation_rad) * t1.scale_y
-    new_y = t1.y + t2.x * math.sin(t1.rotation_rad) * t1.scale_x + t2.y * math.cos(t1.rotation_rad) * t1.scale_y
+    # Precompute sine and cosine
+    cos_theta = math.cos(t1.rotation_rad)
+    sin_theta = math.sin(t1.rotation_rad)
+
+    # Combine transformations
+    new_x = t1.x + t2.x * cos_theta * t1.scale_x - t2.y * sin_theta * t1.scale_y
+    new_y = t1.y + t2.x * sin_theta * t1.scale_x + t2.y * cos_theta * t1.scale_y
     new_scale_x = t1.scale_x * t2.scale_x
     new_scale_y = t1.scale_y * t2.scale_y
     new_rotation = math.fmod(t1.rotation + t2.rotation, 360)
+
     return Transform(x=new_x, y=new_y, scale_x=new_scale_x, scale_y=new_scale_y, rotation=new_rotation)
