@@ -6,12 +6,12 @@ app = FastAPI()
 
 
 @app.get("/bugsie")
-def get_bugsie():
+def get_bugsie() -> dict:
     return {"Hello": "World"}
 
 
 @app.get("/bugsie/{version}")
-def get_versioned_bugsie(version: str):
+def get_versioned_bugsie(version: str) -> dict:
     return {
         "Hello": "World",
         "version": version,
@@ -19,12 +19,12 @@ def get_versioned_bugsie(version: str):
 
 
 @app.post("/bugsie")
-def new_bugsie():
+def new_bugsie() -> dict:
     return {"Hello": "World"}
 
 
 @app.post("/bugsie/{id}.{format}")
-def new_bugsie_from_id_with_format(id: str, format: SupportedFormat):
+def new_bugsie_from_id_with_format(id: str, format: SupportedFormat) -> dict:
     return {
         "Hello": "World",
         "id": id,
@@ -33,7 +33,7 @@ def new_bugsie_from_id_with_format(id: str, format: SupportedFormat):
 
 
 @app.post("/bugsie/{id}")
-def new_bugsie_from_id(id: str):
+def new_bugsie_from_id(id: str) -> dict:
     return {
         "Hello": "World",
         "id": id,
