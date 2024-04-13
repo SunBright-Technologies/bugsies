@@ -4,37 +4,33 @@ from bugsies.models import SupportedFormat
 
 app = FastAPI()
 
-
-@app.get("/bugsie")
-def get_bugsie() -> dict[str, str]:
-    return {"Hello": "World"}
-
-
-@app.get("/bugsie/{version}")
-def get_versioned_bugsie(version: str) -> dict[str, str]:
-    return {
-        "Hello": "World",
-        "version": version,
-    }
+CURRENT_VERSION = "v1"
+DEFAULT_FORMAT = SupportedFormat.SVG
 
 
 @app.post("/bugsie")
-def new_bugsie() -> dict[str, str]:
-    return {"Hello": "World"}
+def create_bugsie(seed: str | None = None) -> dict[str, str]:
+    return create_versioned_bugsie(CURRENT_VERSION, seed)
 
 
-@app.post("/bugsie/{id}.{format}")
-def new_bugsie_from_id_with_format(id: str, format: SupportedFormat) -> dict[str, str]:
+@app.post("/bugsie/{version}")
+def create_versioned_bugsie(version: str, seed: str | None = None) -> dict[str, str]:
     return {
-        "Hello": "World",
+        "message": "Placeholder: create bugsie",
+        "version": version,
+        "seed": seed or "",
+    }
+
+
+@app.get("/bugsie/{id}.{format}")
+def get_bugsie_with_format(id: str, format: SupportedFormat) -> dict[str, str]:
+    return {
+        "message": "Placeholder: get bugsie",
         "id": id,
         "format": format,
     }
 
 
-@app.post("/bugsie/{id}")
-def new_bugsie_from_id(id: str) -> dict[str, str]:
-    return {
-        "Hello": "World",
-        "id": id,
-    }
+@app.get("/bugsie/{id}")
+def get_bugsie(id: str) -> dict[str, str]:
+    return get_bugsie_with_format(id, DEFAULT_FORMAT)
