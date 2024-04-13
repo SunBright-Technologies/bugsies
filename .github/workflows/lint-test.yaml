@@ -18,7 +18,7 @@ jobs:
       REPOSITORY: ${{ steps.repository_lower.outputs.REPOSITORY }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
@@ -45,6 +45,34 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  validate-requirements:
+    needs: build-dev
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ needs.build-dev.outputs.REPOSITORY }}_dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get changed requirements files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            requirements.{in,txt}
+            requirements-dev.{in,txt}
+
+      - name: Validate requirements files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          mv requirements.txt requirements-current.txt
+          pip-compile requirements.in
+          diff -r requirements.txt requirements-current.txt
+          mv requirements-dev.txt requirements-dev-current.txt
+          pip-compile requirements-dev.in
+          diff -r requirements-dev.txt requirements-dev-current.txt
+
   test:
     needs: build-dev
     runs-on: ubuntu-latest
@@ -53,7 +81,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run ruff
         run: |
