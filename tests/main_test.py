@@ -16,6 +16,20 @@ def test_create_versioned_bugsie() -> None:
     assert res["seed"] == ""
 
 
+def test_create_bugsie_with_seed() -> None:
+    res = create_bugsie("any_seed")
+    assert res["message"] == "Placeholder: create bugsie"
+    assert res["version"] == "v1"
+    assert res["seed"] == "any_seed"
+
+
+def test_create_versioned_bugsie_with_seed() -> None:
+    res = create_versioned_bugsie("v2", "any_seed")
+    assert res["message"] == "Placeholder: create bugsie"
+    assert res["version"] == "v2"
+    assert res["seed"] == "any_seed"
+
+
 def test_get_bugsie() -> None:
     res = get_bugsie("any_id")
     assert res["message"] == "Placeholder: get bugsie"
