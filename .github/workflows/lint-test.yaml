@@ -59,16 +59,22 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v44
         with:
-          files: |
-            requirements.{in,txt}
-            requirements-dev.{in,txt}
+          files_yaml: |
+            requirements:
+              - "requirements.{in,txt}"
+            requirements-dev:
+              - "requirements-dev.{in,txt}"
 
-      - name: Validate requirements files
-        if: steps.changed-files.outputs.any_changed == 'true'
+      - name: Validate requirements.txt
+        if: steps.changed-files.outputs.requirements_any_changed == 'true'
         run: |
           mv requirements.txt requirements-current.txt
           pip-compile requirements.in
           diff -r requirements.txt requirements-current.txt
+
+      - name: Validate requirements-dev.txt
+        if: steps.changed-files.outputs.requirements-dev_any_changed == 'true'
+        run: |
           mv requirements-dev.txt requirements-dev-current.txt
           pip-compile requirements-dev.in
           diff -r requirements-dev.txt requirements-dev-current.txt
