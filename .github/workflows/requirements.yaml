@@ -1,0 +1,34 @@
+name: Validate requirements
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "requirements.*"
+      - "requirements-dev.*"
+
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "requirements.*"
+      - "requirements-dev.*"
+
+jobs:
+  validate-requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate requirements.txt
+        run: |
+          mv requirements.txt requirements-current.txt
+          pip-compile requirements.in
+          diff -r requirements.txt requirements-current.txt
+
+      - name: Validate requirements-dev.txt
+        run: |
+          mv requirements-dev.txt requirements-dev-current.txt
+          pip-compile requirements-dev.in
+          diff -r requirements-dev.txt requirements-dev-current.txt

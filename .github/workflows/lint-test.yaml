@@ -3,10 +3,10 @@ name: Lint and Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build-dev:
@@ -54,18 +54,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Validate requirements.txt
-        run: |
-          mv requirements.txt requirements-current.txt
-          pip-compile requirements.in
-          diff -r requirements.txt requirements-current.txt
-          
-      - name: Validate requirements-dev.txt
-        run: |
-          mv requirements-dev.txt requirements-dev-current.txt
-          pip-compile requirements-dev.in
-          diff -r requirements-dev.txt requirements-dev-current.txt
 
       - name: Run ruff
         run: |
