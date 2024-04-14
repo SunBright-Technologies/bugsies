@@ -68,14 +68,14 @@ jobs:
       - name: Validate requirements.txt
         if: steps.changed-files.outputs.requirements_any_changed == 'true'
         run: |
-          mv requirements.txt requirements-current.txt
+          cp requirements.txt requirements-current.txt
           pip-compile requirements.in
           diff -r requirements.txt requirements-current.txt
 
       - name: Validate requirements-dev.txt
         if: steps.changed-files.outputs.requirements-dev_any_changed == 'true'
         run: |
-          mv requirements-dev.txt requirements-dev-current.txt
+          cp requirements-dev.txt requirements-dev-current.txt
           pip-compile requirements-dev.in
           diff -r requirements-dev.txt requirements-dev-current.txt
 
