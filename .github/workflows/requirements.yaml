@@ -1,0 +1,40 @@
+name: Validate requirements
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types: [completed]
+    branches-ignore: [main]
+
+jobs:
+  validate-requirements:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/sunbright-technologies/bugsies_dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get changed requirements files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files_yaml: |
+            requirements:
+              - "requirements.{in,txt}"
+            requirements-dev:
+              - "requirements-dev.{in,txt}"
+
+      - name: Validate requirements.txt
+        if: steps.changed-files.outputs.requirements_any_changed == 'true'
+        run: |
+          cp requirements.txt requirements-current.txt
+          pip-compile requirements.in
+          diff -r requirements.txt requirements-current.txt
+
+      - name: Validate requirements-dev.txt
+        if: steps.changed-files.outputs.requirements-dev_any_changed == 'true'
+        run: |
+          cp requirements-dev.txt requirements-dev-current.txt
+          pip-compile requirements-dev.in
+          diff -r requirements-dev.txt requirements-dev-current.txt
