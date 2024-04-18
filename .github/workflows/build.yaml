@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: ghcr.io/sunbright-technologies/bugsies_dev
+          tags: ghcr.io/sunbright-technologies/bugsies_dev_${{ github.sha }}
           push: true
           target: development
           cache-from: type=gha
