@@ -11,12 +11,12 @@ jobs:
 
   validate-requirements:
     needs: build
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/validate-requirements.yaml
 
   lint:
     needs: build
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/lint.yaml
 
   test:
     needs: build
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/test.yaml
