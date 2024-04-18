@@ -7,12 +7,12 @@ on:
 
 jobs:
   build:
-    uses: ./build.yaml
+    uses: ./.github/workflows/build.yaml
 
   lint:
     needs: build
-    uses: ./lint.yaml
+    uses: ./.github/workflows/build.yaml
 
   test:
     needs: build
-    uses: ./test.yaml
+    uses: ./.github/workflows/build.yaml
