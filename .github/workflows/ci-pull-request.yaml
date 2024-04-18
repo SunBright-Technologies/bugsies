@@ -1,0 +1,22 @@
+name: CI Pull Request
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+
+  validate-requirements:
+    needs: build
+    uses: ./.github/workflows/requirements.yaml
+
+  lint:
+    needs: build
+    uses: ./.github/workflows/lint.yaml
+
+  test:
+    needs: build
+    uses: ./.github/workflows/test.yaml
