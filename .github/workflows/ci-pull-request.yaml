@@ -11,7 +11,7 @@ jobs:
 
   validate-requirements:
     needs: build
-    uses: ./.github/workflows/validate-requirements.yaml
+    uses: ./.github/workflows/requirements.yaml
 
   lint:
     needs: build
