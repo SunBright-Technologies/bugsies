@@ -7,7 +7,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/sunbright-technologies/bugsies_dev
+      image: ghcr.io/sunbright-technologies/bugsies_dev_${{ github.sha }}
 
     steps:
       - name: Checkout
